@@ -1,7 +1,19 @@
 import {cart} from '../data/cart.js';
+import { products } from '../data/products.js';
+import {formatCurrency} from '../scripts/utils/money.js';
 console.log(cart);
 
 const cartItemsHTML = cart.map(function(cartItem){
+
+    const productId = cartItem.productId;
+    
+    let matchingProduct;
+
+    products.forEach( (product) => {
+        if (productId === product.id) {
+            matchingProduct = product;            
+        }
+    });
     return `
          <div class="cart-item-container">
             <div class="delivery-date">
@@ -9,14 +21,14 @@ const cartItemsHTML = cart.map(function(cartItem){
             </div>
 
             <div class="cart-item-details-grid">
-              <img class="product-image" src=${cartItem.productImage}>
+              <img class="product-image" src=${matchingProduct.image}>
 
               <div class="cart-item-details">
                 <div class="product-name">
-                  ${cartItem.productName}
+                  ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                  $${ (cartItem.productPrice / 100 ).toFixed(2)}
+                  $${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -79,4 +91,4 @@ const cartItemsHTML = cart.map(function(cartItem){
           </div> `
   }).join('');
 
-document.querySelector('.order-summary').innerHTML = cartItemsHTML;
+document.querySelector('.js-order-summary').innerHTML = cartItemsHTML;
