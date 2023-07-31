@@ -53,7 +53,7 @@ const productsHTML = products.map(function(product){
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id=${product.id} data-product-name="${product.name}">
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id=${product.id} data-product-name="${product.name}" data-product-image="${product.image}" data-product-price=${product.priceCents}>
                 Add to Cart
             </button>
         </div>`;
@@ -73,8 +73,10 @@ document.querySelectorAll('.js-add-to-cart').forEach(function(btn){
     btn.addEventListener('click', function(e){
         const productId = e.currentTarget.dataset.productId;
         const productName = e.currentTarget.dataset.productName;
+        const productImage = e.currentTarget.dataset.productImage;
+        const productPrice = e.currentTarget.dataset.productPrice;
         
-        addToCart(productId, productName);       
+        addToCart(productId, productName, productImage, productPrice);       
         updateCartQty();
     });
 });
