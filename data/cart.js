@@ -30,3 +30,11 @@ export function addToCart(id){
            console.log(cart);
         }    
 }
+
+export function removeFromCart(id){
+    cart.forEach( (cartItem) => {
+        if (id === cartItem.productId) {
+            console.log('am eliminat ' + id);
+        }
+    });
+}
