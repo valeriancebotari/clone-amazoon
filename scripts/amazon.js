@@ -8,6 +8,7 @@ import {formatCurrency} from '../scripts/utils/money.js';
     productsHTML += `<div> etc` **** */
 
 const cartQuantity = document.querySelector('.js-cart-quantity');
+updateCartQty();
 const productsHTML = products.map(function(product){
     return `
         <div class="product-container">
@@ -68,6 +69,7 @@ function updateCartQty(){
                 return acc;
              },0);
     cartQuantity.textContent = totalQ;      
+    console.log(totalQ);
 }
 
 document.querySelectorAll('.js-add-to-cart').forEach(function(btn){

@@ -4,6 +4,7 @@ import {formatCurrency} from '../scripts/utils/money.js';
 console.log(cart);
 
 
+function generateCartItems(){
 let cartItemsHTML = cart.map(function(cartItem){
 
     const productId = cartItem.productId;
@@ -17,7 +18,7 @@ let cartItemsHTML = cart.map(function(cartItem){
         }
     });
     return `
-         <div class="cart-item-container">
+         <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -94,17 +95,23 @@ let cartItemsHTML = cart.map(function(cartItem){
   });
 
   cartItemsHTML = cartItemsHTML.join('');
-  
+  document.querySelector('.js-order-summary').innerHTML = cartItemsHTML;
 
-document.querySelector('.js-order-summary').innerHTML = cartItemsHTML;
+}
+
+generateCartItems();  
+
 
 const listDeleteLinks = document.querySelectorAll('.js-delete-quantity');
 
 listDeleteLinks.forEach( (del) => {
     del.addEventListener('click', (e) => {
         const prodID = e.currentTarget.dataset.productId;
-        //console.log(prodID);
+        
         removeFromCart(prodID);
+        //const remHTML = e.currentTarget.parentElement.parentElement.parentElement.parentElement;
+        const containerItem = document.querySelector(`.js-cart-item-container-${prodID}`);
+        containerItem.remove();        
     });
 });
     
